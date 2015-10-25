@@ -31,6 +31,7 @@
 					<td><?php echo $post['Post']['modified']; ?></td>
 					<td>
 						<?php if($post[ 'Post' ][ 'published' ] == 1) { 
+							// This link will show: kevlog/post/disable/'id'
 							echo $this->Html->link('Publish', array('action'=>'disable', $post[ 'Post' ][ 'id' ]));
 						}else{
 							echo $this->Html->link('Unpublish', array('action'=>'enable', $post[ 'Post' ][ 'id' ]));		
@@ -39,11 +40,17 @@
 					</td>
 					<td>
 						<?php 
+							// This link will show: kevlog/post/edit/'id'
 							echo $this->Html->link('Edit', array('action'=>'edit', $post[ 'Post' ][ 'id' ]), null);
 						?>
 					</td>
 					<td>
-						<?php echo $this->Html->link(__('Delete', true), array('action'=>'delete', $post[ 'Post' ][ 'id' ]), null, sprintf(__('Are you sure you want to delete Post # %s?', true), $post[ 'Post' ][ 'id' ]));?>
+						<?php
+							// This link will show: kevlog/post/deletes/'id' 
+							// And a dialog will pop up and ask "'"Are you sure ... Post 'id'?"
+							// with 2 options: OK and Cancel
+							echo $this->Html->link(__('Delete', true), array('action'=>'delete', $post[ 'Post' ][ 'id' ]), null, sprintf(__('Are you sure you want to delete Post # %s?', true), $post[ 'Post' ][ 'id' ]));
+						?>
 					</td>
 				</tr>
 			<?php endforeach;?>
