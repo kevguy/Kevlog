@@ -10,6 +10,9 @@
 		// Its 'Post' string argument represents the action
 		// that will be invoked, such as
 		// the URL to which the form data will be submitted 
+		// If crate() is called with no parameters supplied,
+		// it assumes  you are building a form that submits 
+		// to the current controller, via the current URL.
 		echo $this->Form->create('Post');
 		// Deal with the error handling of the form
 		// Its argument, Post.title, is a atring that
@@ -26,8 +29,8 @@
 		echo $this->Form->input('Post.title',
 							array('id'=>'postitle',
 									'label'=>'Title:',
-									'size'=> 50,
-									'maxlength'=>255,
+									'size'=> '50',
+									'maxlength'=>'255',
 									'error'=>false));
 		// Generate the 'textarea' input element called 'content'
 		// using an argument format similar to the 'title' input element.
@@ -36,7 +39,7 @@
 							array('id'=>'postcontent',
 									'type'=>'textarea',
 									'label'=>'Content',
-									'rows'=>10,
+									'rows'=>'10',
 									'error'=>false));
 		// Add the form closing tag using the form helper method end().
 		// It also accepts an associative array of HTML submit input element attributes

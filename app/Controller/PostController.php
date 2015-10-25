@@ -34,7 +34,7 @@ class PostController extends AppController{
 
 		// Next, we check if the add post form has been submitted.
 		// If the form has not been submitted, the add view is displayed.
-		// If the submitted data ($this->data) is not empty, 
+		// If the submitted data ($this->request->data) is not empty, 
 		// using the 'save' method of the Post model object,
 		// the application will attempt to create a new post record.
 		// The 'save' method automatically uses the validation rules defined
@@ -43,13 +43,13 @@ class PostController extends AppController{
 		// the error message is set, using the 'setFlash' method of the 'Session' object.
 		// Otherwise, the post is saved to the database table,
 		// and the success message is set for display in the view.
-		if (!empty($this->data)){
+		if (!empty($this->request->data)){
 			$this->Post->create();
-			if ($this->Post->save($this->data)){
-				$this->Session->setFlash(_('The Post has been saved',true));
+			if ($this->Post->save($this->request->data)){
+				$this->Session->setFlash(__('The Post has been saved',true));
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(_('The Post could not be saved. Please try again.', true));
+				$this->Session->setFlash(__('The Post could not be saved. Please tryyyyy again.', true));
 			}
 		}
 	}
@@ -61,30 +61,40 @@ class PostController extends AppController{
 
 		$this->set(compact('actionHeading','actionSlogan'));
 
-		// Check whether $id and $this->data are empty,
+		// Check whether $id and $this->request->data are empty,
 		// or an error message will be stored in our 'Session' object,
 		// and the request is redirected to the blog home page.
-		if (!$id && empty($this->data)) {
+		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(_('Invalid Post',true));
 			$this->redirect(array('action'=>'index'));
 		}
 
-		// If the submitted formdata is not empty,
+		// If the submitted form data is not empty,
 		// Cake will try to commit the edited post information to the posts database table
 		// and then flash appropriate messages upon success or failure. 
-		// Finally, if only the submitted data is empty, a post's information is pulled
-		// with the 'Post' model 'read' method using the supplied $id as the criterion.
+		//if (!empty($this->request->data)) {
+		//	if ($this->Post->save($this->request->data)) {
+		//		$this->Session->setFlash(_('The Post has been saved', true));
+		//		$this->redirect(array('action'=>'index'));
+		//	} else {
+		//		$this->Session->setFlash(__('The Post could not be saved. Please try again.', true));
+		//	}
+		//}
+
 		if (!empty($this->data)) {
+			$this->Post->create();
 			if ($this->Post->save($this->data)) {
-				$this->Session->setFlash(_('The Post has been saved', true));
+				$this->Session->setFlash(__('The Post has been saved', true));
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(_('The Post could not be saved. Please try again.', true));
+				$this->Session->setFlash(__('The Post could not be saved. Please tryyyy again.', true));
 			}
 		}
 
-		if (empty($this->data)){
-			$this->data = $this->Post->read(null,$id);
+		// Finally, if only the submitted data is empty, a post's information is pulled
+		// with the 'Post' model 'read' method using the supplied $id as the criterion.
+		if (empty($this->request->data)){
+			$this->request->data = $this->Post->read(null,$id);
 		}
 	}
 }

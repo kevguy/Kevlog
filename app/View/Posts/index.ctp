@@ -8,7 +8,10 @@
 		<table>
 			<tr>
 				<td>
-					<b>ID></b>
+					<b>ID</b>
+				</td>
+				<td>
+					<b>title</b>
 				</td>
 				<td>
 					<b>content</b>
