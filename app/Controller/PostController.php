@@ -53,5 +53,39 @@ class PostController extends AppController{
 			}
 		}
 	}
+
+	// This function handles updating post data
+	function edit($id=null) {
+		$actionHeading = 'Edit a Post!';
+		$actionSlogan = 'Please fill in all fields. Now you can amend your post.';
+
+		$this->set(compact('actionHeading','actionSlogan'));
+
+		// Check whether $id and $this->data are empty,
+		// or an error message will be stored in our 'Session' object,
+		// and the request is redirected to the blog home page.
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(_('Invalid Post',true));
+			$this->redirect(array('action'=>'index'));
+		}
+
+		// If the submitted formdata is not empty,
+		// Cake will try to commit the edited post information to the posts database table
+		// and then flash appropriate messages upon success or failure. 
+		// Finally, if only the submitted data is empty, a post's information is pulled
+		// with the 'Post' model 'read' method using the supplied $id as the criterion.
+		if (!empty($this->data)) {
+			if ($this->Post->save($this->data)) {
+				$this->Session->setFlash(_('The Post has been saved', true));
+				$this->redirect(array('action'=>'index'));
+			} else {
+				$this->Session->setFlash(_('The Post could not be saved. Please try again.', true));
+			}
+		}
+
+		if (empty($this->data)){
+			$this->data = $this->Post->read(null,$id);
+		}
+	}
 }
 ?>
