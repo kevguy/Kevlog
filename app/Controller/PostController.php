@@ -129,5 +129,27 @@ class PostController extends AppController{
 		}
 	}
 	
+	function enable($id=null){
+		$post=$this->Post->read(null,$id);
+		if (!id && empty($post)) {
+			$this->Session->setFlash(__('You must provide a valid ID number to disable a post', true));
+			$this->redirect(array('action'=>'index'));
+		}
+
+		if (!empty($post)) {
+			$post['Post']['published'] = 1;
+			if ($this->Post->save($post)){
+				$this->Session->setFlash(__('Post ID '.$id.' has been enabled.',true));
+			} else {
+				$this->Session->setFlash(__('Post ID'.$id.' was not saved.',true));
+			}
+			$this->redirect(array('action'=>'index'));
+		} else {
+			$this->Session->setFlash(__('No Post by that ID was found.', true));
+			$this->redirect(array('action'=>'index'));
+		}
+
+	}
+
 }
 ?>
