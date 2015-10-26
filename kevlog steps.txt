@@ -1,0 +1,91 @@
+CREATE TABLE IF NOT EXISTS posts (
+id int(11) NOT NULL auto_increment,
+title varchar(50) default NULL,
+content text,
+created datetime default NULL,
+modified datetime default NULL,
+published tinyint(1) NOT NULL default 1,
+PRIMARY KEY (id)
+);
+
+
+
+
+
+CREATE TABLE dummy
+(
+PersonID int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+);	
+
+
+
+
+1. 
+mysql.exe -u root
+(xampp mysql default password is empty)
+
+2.
+CREATE DATABASE TESTDB;
+
+3.
+
+SHOW DATABASES;
+
+USE TESTDB;
+
+4.
+CREATE TABLE IF NOT EXISTS posts (
+id int(11) NOT NULL auto_increment,
+title varchar(50) default NULL,
+content text,
+created datetime default NULL,
+modified datetime default NULL,
+published tinyint(1) NOT NULL default 1,
+PRIMARY KEY (id)
+);
+
+5. Insert sample post information
+INSERT INTO posts
+(id, title, content, created, modified, published) VALUES
+(1, 'Another day Still Looking', 'My Lion ran off', '2008-06-19 18:26:11', '2008-06-19 18:26:11', 1);
+
+6. 
+INSERT INTO posts
+(id, title, content, created, modified, published) VALUES
+(2, 'A good day', 'The lion is back in one piece', '2008-06-19 18:31:50', '2008-06-19 18:31:50', 1),
+(3, 'Thank GOD', 'Everything belongs to my father', '2008-06-20 18:42:50', '2008-06-19 18:42:50', 1);
+
+7. Create model (app/model/post.php)
+8. Create controller (app/controller/PostController.php)
+9. create folder 'Post' in app/view/ -> create index.ctp inside app/views/posts/
+10. Check out the result in http://localhost/kevlog/post/index
+7-10. Refer to git
+
+Create a post
+11. Add the 'add' method in PostController.
+12. Create the add view and store the codes in app/view/posts/add.ctp file
+13. Create the add_or_edit.ctp file in app/view/elements/
+14. Check out the result in http://localhost/kevlog/post/add
+11-14. Refer to git
+
+Update a post
+15. Add the 'edit' method in PostController.
+16. Create the edit view and store the codes in app/view/posts/edit.ctp file
+17. Chec out the result in http://localhost/kevlog/post/edit/1
+15-17. Refer to git
+
+Unpublishing a post
+18. Add the 'disable' method in PostController.
+Refer to git.
+
+Publishing a post
+19. Add the 'enable' method in PostController.
+Refer to git.
+
+Deleting a post
+20. Add the 'delete' method in PostController.
+Refer to git.
