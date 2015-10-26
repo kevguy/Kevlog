@@ -151,5 +151,16 @@ class PostController extends AppController{
 
 	}
 
+	function delete($id=null){
+		if (!$id){
+			$this->Session->setFlash(__('Invalid id for Post',true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if ($this->Post->delete($id)){
+			$this->Session->setFlash(__('Post deleted', true));
+			$this->redirect(array('action'=>'index'));
+		}
+	}
+
 }
 ?>
