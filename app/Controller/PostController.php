@@ -81,9 +81,9 @@ class PostController extends AppController{
 		//	}
 		//}
 
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 			$this->Post->create();
-			if ($this->Post->save($this->data)) {
+			if ($this->Post->save($this->request->data)) {
 				$this->Session->setFlash(__('The Post has been saved', true));
 				$this->redirect(array('action'=>'index'));
 			} else {
@@ -97,5 +97,37 @@ class PostController extends AppController{
 			$this->request->data = $this->Post->read(null,$id);
 		}
 	}
+
+	function disable($id=null){
+		// A post record is retrieved from the 'posts' database table
+		// and stored inthe $post variable.
+		$post = $this->Post->read(null,$id);
+		if (!id && empty($post)) {
+			$this->Session->setFlash(__('You must provide a valid ID number to disable a post', true));
+			$this->redirect(array('action'=>'index'));
+		}
+
+		if (!empty($post)) {
+			// If there is a valid $id and the $post is not empty, 
+			// we set the post published elemet to 0 and 
+			// update the 'posts' database table. 
+			// Finally, the 'Session' object sets the appropriate message,
+			// and then we redirect to the blog home page.
+			$post['Post']['published'] = 0;
+			if ($this->Post->save($post)){
+				$this->Session->setFlash(__('Post ID '.$id.' has been disabled.',true));
+			} else {
+				$this->Session->setFlash(__('Post ID'.$id.' was not saved.',true));
+			}
+			$this->redirect(array('action'=>'index'));
+		} else {
+			// If the $id value is null or the $post variable is empty,
+			// we use the 'Session' object to set the appropriate message
+			// and redirect to the blog home page
+			$this->Session->setFlash(__('No Post by that ID was found.', true));
+			$this->redirect(array('action'=>'index'));
+		}
+	}
+	
 }
 ?>
